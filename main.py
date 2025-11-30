@@ -84,11 +84,11 @@ def local_flatness_estimation(model, x_adv, y, num_samples=10, sigma=0.01):
 if __name__ == "__main__":
     
     # Paths (Configured based on your snippet)
-    csv_path = '/data1/dsy/fedpgn/data/images.csv'
-    img_root = '/data1/dsy/fedpgn/data/images'
-    weight_inc_v3 = '/data1/dsy/fedpgn/torch_nets/tf2torch_inception_v3.npy'
-    weight_inc_v4 = '/data1/dsy/fedpgn/torch_nets/tf2torch_inception_v4.npy'
-    output_file = 'xxxxxxxv3-v4_results.txt'
+    csv_path = 'data/images.csv'
+    img_root = 'data/images'
+    weight_inc_v3 = '../torch_nets/tf2torch_inception_v3.npy'
+    weight_inc_v4 = '../torch_nets/tf2torch_inception_v4.npy'
+    output_file = 'v3-v4_results.txt'
 
     # Dataset Setup
     train_dataset = CustomDataset(csv_file=csv_path, root_dir=img_root)
@@ -96,8 +96,8 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_dataset, batch_size=BS, shuffle=False, pin_memory=True, num_workers=8)
 
     # Device Setup
-    device = torch.device("cuda:9" if torch.cuda.is_available() else "cpu")
-    device2 = torch.device("cuda:9" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device2 = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # Model Setup
     # Surrogate Model (Attack Model)
