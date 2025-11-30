@@ -1,7 +1,4 @@
-.
-├── data/
-│   ├── images/          # 攻击图片目录 [cite: 307]
-│   └── images.csv       # 图片标签文件 (filename, label)
-├── torch_nets/          # 模型定义文件 (需包含 tf2torch_inception_v3 等)
-├── main.py              # DMFAA 攻击主程序
-└── README.md
+文件名,说明
+main.py,包含 DMFAA 攻击逻辑，包括 OODI、Cross-Stage Momentum Reuse 和 FAA 。
+data/,存放攻击所需的数据集 (Images 和 images.csv)。
+torch_nets/,存放 PyTorch 模型定义文件，例如 tf2torch_inception_v3。
