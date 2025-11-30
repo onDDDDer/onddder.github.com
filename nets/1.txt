@@ -3,4 +3,5 @@ All models in this category are converted from TensorFlow to PyTorch using the M
 [ylhz/tf_to_pytorch_model](https://github.com/ylhz/tf_to_pytorch_model)
 
 2. Transformer-based & CNN Baseline Models (Hugging Face Model Hub)
-All models in this category are downloaded from the Hugging Face model hub:
+All models in this category are downloaded from the Hugging Face model hub
+
