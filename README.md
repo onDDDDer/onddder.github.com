@@ -7,7 +7,7 @@ This project implements DMFAA (Diversified Multi‑stage Flatness‑Aware Attack
 📁 Project Structure
 ```text
 ├── main.py                # DMFAA main implementation
-├── torch_nets/            # tf2torch converted models (Inception v3/v4)
+├── nets/            # tf2torch converted models (Inception v3/v4)
 ├── data/
 │   ├── images/            # image files
 │   └── images.csv         # CSV file: [filename, label]
