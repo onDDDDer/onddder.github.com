@@ -9,7 +9,7 @@ from torchvision import transforms
 import os
 
 # Import your specific model definitions
-from torch_nets import tf2torch_inception_v3,tf2torch_inception_v4
+from nets import tf2torch_inception_v3,tf2torch_inception_v4
 
 # --- Helper Classes ---
 class Normalize(nn.Module):
@@ -86,8 +86,8 @@ if __name__ == "__main__":
     # Paths (Configured based on your snippet)
     csv_path = 'data/images.csv'
     img_root = 'data/images'
-    weight_inc_v3 = '../torch_nets/tf2torch_inception_v3.npy'
-    weight_inc_v4 = '../torch_nets/tf2torch_inception_v4.npy'
+    weight_inc_v3 = '../nets/tf2torch_inception_v3.npy'
+    weight_inc_v4 = '../nets/tf2torch_inception_v4.npy'
     output_file = 'v3-v4_results.txt'
 
     # Dataset Setup
