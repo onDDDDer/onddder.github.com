@@ -117,7 +117,6 @@ if __name__ == "__main__":
     T = 10
     alpha = epsilon / T
     mu = 1.0
-    delta = 0.5
     zeta = 3.0 * epsilon
     eta1 = epsilon * 0.9
     eta2 = epsilon * 0.3
@@ -230,7 +229,7 @@ if __name__ == "__main__":
                     grad_star = x_star.grad
                     
                     # Accumulate Gradient
-                    g_bar += (1 / N_samples) * ((1 - delta) * grad_prime.float() + delta * grad_star.float())
+                    g_bar += (1 / N_samples) * (0.5 * grad_prime.float() + 0.5 * grad_star.float())
 
                 # Update Momentum and Image
                 grad = mu * grad + g_bar / (torch.norm(g_bar, p=1) + 1e-8)
