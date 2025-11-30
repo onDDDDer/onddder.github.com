@@ -1,3 +1,74 @@
-这是一个为 GitHub 准备的完整 README.md 文本，您可以直接复制粘贴使用。DM Adversarial Transferability (PyTorch)This repository provides the PyTorch implementation of the DMFAA (Diversified Multi-stage Flatness-Aware Aggregation) adversarial attack framework. The method significantly enhances adversarial transferability by integrating diversified sampling, cross-stage momentum reuse, and flatness-aware aggregation, achieving state-of-the-art performance in black-box attacks.✨ Key FeaturesThe DMFAA framework incorporates several novel techniques:Orthogonal Diversified Initialization (OODI): Used to guide the perturbation search into diverse, high-transferability regions.Cross-Stage Momentum Reuse: Ensures gradient consistency and prevents overfitting to the surrogate model's features across multiple attack stages.Flatness-Aware Aggregation (FAA): Estimates the local flatness of the loss landscape for each perturbation variant (from Stages 1 and 2) and aggregates them based on inverse flatness weights, resulting in a more robust final adversarial example.📂 Project StructureFile/DirectoryDescriptionmain.pyThe main script implementing the complete DMFAA attack logic.data/images/Directory where all input images for the attack should be placed.data/images.csvThe annotation file (CSV) linking image filenames to their ground-truth labels.torch_nets/Directory containing the PyTorch model definitions.README.mdThis document.🛠️ Setup and Prerequisites1. DependenciesInstall the necessary Python packages:Bashpip install torch torchvision numpy pandas pillow
-2. Model FilesThe attack leverages pre-trained models converted from TensorFlow (e.g., tf2torch_inception_v3, tf2torch_ens_adv_inc_res_v2).Model Source: The model definitions and conversion tools are typically derived from projects like ylhz/tf_to_pytorch_model.Action:Obtain the required PyTorch model definition files and place them in the torch_nets/ directory.Obtain the corresponding pre-trained weight files (e.g., .npy files) and ensure the paths in main.py are correctly pointing to these files.3. Data SetupEnsure your dataset is correctly set up:Place all input images inside data/images/.Verify that data/images.csv is correctly formatted to link image file names with their integer labels, as expected by the CustomDataset class.🚀 UsageConfigure: Open main.py and verify the data paths and model weight paths (csv_file, root_dir, weight_file) are correct for your system.Run the Attack:Bashpython main.py
-OutputThe script will execute the DMFAA attack in batches. The results will be:Console Output: Prints the final average Attack Success Rate (ASR).Log File: Detailed batch-wise results (e.g., Batch 0: Attack Rate 0.9800) are appended to the log file specified in main.py (e.g., xxxv3-ensv3_results.txt).📄 Algorithm HighlightsThe aggregation step uses Local Flatness Estimation (Algorithm 1) and Flatness-Aware Aggregation (FAA) to weight the results of the multi-stage attack:Algorithm ComponentDescriptionAlgorithm 1: Local Flatness EstimationCalculates the local flatness by estimating the standard deviation of the cross-entropy loss over a small Gaussian neighborhood of the adversarial sample.FAA FormulaWeights are computed via a soft-max over the inverse flatness scores: $\lambda_s = \frac{\exp(-\text{flatness}_s)}{\sum_k \exp(-\text{flatness}_k)}$ to prioritize perturbations found in flatter regions.
+DMFAA
+
+This project implements DMFAA (Diversified Multi‑stage Flatness‑Aware Attack), a method to generate highly transferable adversarial examples for black-box image classification models.
+
+
+
+📁 Project Structure
+```text
+├── main.py                # DMFAA main implementation
+├── torch_nets/            # tf2torch converted models (Inception v3/v4)
+├── data/
+│   ├── images/            # image files
+│   └── images.csv         # CSV file: [filename, label]
+└── README.md
+```
+
+main.py reads data/images.csv and data/images/, generates adversarial samples in batches, and evaluates the attack success on a black-box model.
+
+
+🔧 Requirements
+
+- Python 3.8+
+- PyTorch >= 1.7
+- torchvision
+- numpy, pandas, pillow
+
+
+📦 Models
+
+1. CNN-based Models (Converted from TensorFlow)
+All models in this category are converted from TensorFlow to PyTorch using the MMdnn pipeline from:
+[ylhz/tf_to_pytorch_model](https://github.com/ylhz/tf_to_pytorch_model)
+
+These include:
+- Inception-v3 (Inc-v3)
+- Inception-v4 (Inc-v4)
+- Inception-ResNet-v2 (IncRes-v2)
+- ResNet-50 (Res-50)
+- ResNet-101 (Res-101)
+- Inception-v3<sub>ens3</sub> (Inc-v3 ens3)
+- Inception-v3<sub>ens4</sub> (Inc-v3 ens4)
+- Inception-ResNet-v2<sub>ens</sub> (IncRes-v2 ens)
+> These models include both standard ImageNet classifiers and ensemble adversarially trained variants widely used in transferability research.
+
+2. Transformer-based & CNN Baseline Models (Hugging Face Model Hub)
+All models in this category are downloaded from the Hugging Face model hub:
+- [ViT-B (Vision Transformer Base)](https://huggingface.co/google/vit-base-patch16-224)
+- [DeiT-B](https://huggingface.co/facebook/deit-base-patch16-224)
+- [PiT-B (Pooling-based Vision Transformer)](https://huggingface.co/naver/pit-b-distilled-224)
+- [Swin-T](https://huggingface.co/microsoft/swin-tiny-patch4-window7-224)
+- [Swin-S](https://huggingface.co/microsoft/swin-small-patch4-window7-224)
+- [LeViT](https://huggingface.co/facebook/levit-256)
+- [CaiT-S](https://huggingface.co/facebook/cait-small-patch32-224)
+- [ConViT-B](https://huggingface.co/facebook/convit-base)
+- [Visformer-S](https://huggingface.co/naver/visformer-small)
+- [DenseNet-121](https://huggingface.co/pytorch/vision-densenet-121)
+- [VGG-19](https://huggingface.co/pytorch/vision-vgg19)
+
+
+▶️ Running DMFAA
+
+Run the attack with:
+`python main.py`
+
+
+
+
+
+
+
+
+
+
+
